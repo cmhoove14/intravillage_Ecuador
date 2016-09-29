@@ -39,31 +39,31 @@ for(i in 1:nrow(newdf)){
     newdf[i,5] = sd(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2], 
                           which('age2' == varbs)[[1]]], na.rm = TRUE)
   #number of people in the household that week
-    newdf[i,6] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2], 1])
+    newdf[i,6] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2], 3]))
   #number of people in age category 4 (>13)
-    newdf[i,7] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 >= 13, 1])
+    newdf[i,7] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 >= 13, 1]))
   #number of people in age category 3 (5-13)
-    newdf[i,8] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 13 & dat$age2 >= 5, 1])
+    newdf[i,8] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 13 & dat$age2 >= 5, 1]))
   #number of people in age category 2 (1-5)
-    newdf[i,9] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 5 & dat$age2 >= 1, 1])
+    newdf[i,9] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 5 & dat$age2 >= 1, 1]))
   #number of people in age category 1 (<1)
-    newdf[i,10] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 1, 1])
+    newdf[i,10] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$age2 < 1, 1]))
   #number of gender=1
-    newdf[i,11] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$Gender == 1, 1])  
+    newdf[i,11] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$Gender == 1, 1]))
   #number of gender=2
-    newdf[i,12] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$Gender == 2, 1])  
+    newdf[i,12] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$Gender == 2, 1]))  
   #number of people with diarrhea = 1 (i.e. both ongoing and incident)
-    newdf[i,13] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA == 1, 1])
+    newdf[i,13] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA == 1, 1]))
   #number of people with *incident* diarrhea
-    newdf[i,14] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$diarrhea_inc == 1, 1])
+    newdf[i,14] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$diarrhea_inc == 1, 1]))
   #number of people at risk (i.e. without diarrhea)
-    newdf[i,15] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA != 1, 1])
+    newdf[i,15] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA != 1, 1]))
   #number of people with fever = 1 (i.e. both ongoing and incident)
-    newdf[i,16] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER == 1, 1])
+    newdf[i,16] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER == 1, 1]))
   #number of people with *fever* diarrhea
-    newdf[i,17] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$fever_inc == 1, 1])
+    newdf[i,17] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$fever_inc == 1, 1]))
   #number of people at risk (i.e. without fever)
-    newdf[i,18] = length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER != 1, 1])
+    newdf[i,18] = sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER != 1, 1]))
   #Access to improved sanitation
     newdf[i,19] = dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2], 
                       which('impr_sani' == varbs)[[1]]][1]
@@ -95,12 +95,12 @@ for(i in 1:nrow(newdf)){
     newdf[i,28] = dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2], 
                       which('com_watertreat' == varbs)[[1]]][1]
   #number of people at risk (i.e. without diarrhea) ***Including people who just contracted it that week
-    newdf[i,29] = (length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA != 1, 1]) +
-                   length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$diarrhea_inc == 1, 1]))
+    newdf[i,29] = (sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$DIARRHEA != 1, 1])) +
+                   sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$diarrhea_inc == 1, 1])))
 
   #number of people at risk (i.e. without fever) ***Including people who just contracted it that week
-    newdf[i,30] = (length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER != 1, 1]) +
-                   length(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$fever_inc == 1, 1]))
+    newdf[i,30] = (sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$FEVER != 1, 1])) +
+                   sum(!is.na(dat[dat$ID_casa == newdf[i,1] & dat$WEEK == newdf[i,2] & dat$fever_inc == 1, 1])))
     }
       
 #Code variable (i.e. column) names
