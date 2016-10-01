@@ -44,13 +44,13 @@ hh2<-hh2[, !names(hh2) %in% giscols[!giscols %in% c("Com", "Numero", "Ocupada", 
   plot(x = hh2s, y = hh2_totals)
   
 #A handful of houses seem to be way more infected than others, let's check them out 
-  hh2_hi<-subset(hh2, HH == c(hh2s[which(hh2_totals >= 150)]))
+  hh2_hi<-subset(hh2, HH == c(hh2s[which(hh2_totals >= 20)]))
   #All three houses are in village three and have high hh population that appears to be quite variable as
   #well; maybe something like a hostel that has highly transient population?
   
 #What about distribution without those three hhs?
-  plot(hist(hh2_totals[hh2_totals <= 150]))
-  plot(hist(log(hh2_totals[hh2_totals <= 150]+1)))
+  hist(hh2_totals[hh2_totals <= 20])
+  hist(log(hh2_totals[hh2_totals <= 20]+1))
   
 #Scatterplot matrix of random variables (week, hh, village, x/y coord)
   pairs(hh2[,c(1,3:5,36:38)], cex=0.6, col='grey50')
