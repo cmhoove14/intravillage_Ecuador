@@ -155,28 +155,6 @@ hh2$d_inc = (hh2$inc_diarrhea / hh2$n_drisk2)
 write.csv(hh2, "C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/hh_xy_merge.csv",
           row.names = FALSE)
 
-#Check out distribution of cases within households ############
-
-#Check out distribution of incidence values  
-hist(hh2$d_inc)                        
-hist(log(hh2$d_inc+1))
-hist(log(hh2$d_inc[hh2$d_inc > 0]+1))
-
-#get household total number of cases  
-hh2_totals<-as.numeric()
-for(i in 1:length(hh2s)){
-  hh2_totals[i] = sum(hh2$inc_diarrhea[hh2$HH == hh2s[i]])
-}
-hist(hh2_totals)
-plot(x = hh2s, y = hh2_totals)
-
-#A couple of houses seem to be way more infected than others, let's check them out 
-hh2_hi<-subset(hh2, HH == c(hh2s[which(hh2_totals >= 20)]))
-#both houses have 10+ people, one in Vil17 one in Vil19
-
-#What about distribution without those three hhs?
-hist(hh2_totals[hh2_totals <= 20])
-hist(log(hh2_totals[hh2_totals <= 20]+1))
 
 #Scatterplot matrix of random variables (week, hh, village, x/y coord)
 pairs(hh2[,c(1,3:5,36:38)], cex=0.6, col='grey50')
