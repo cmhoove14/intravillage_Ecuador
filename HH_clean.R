@@ -155,7 +155,6 @@ hh2$d_inc = (hh2$inc_diarrhea / hh2$n_drisk2)
 write.csv(hh2, "C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/hh_xy_merge.csv",
           row.names = FALSE)
 
-
 #Scatterplot matrix of random variables (week, hh, village, x/y coord)
 pairs(hh2[,c(1,3:5,36:38)], cex=0.6, col='grey50')
 
@@ -165,7 +164,31 @@ pairs(hh2[,c(7:13,38)], cex=0.6, col ='blue')
 #Scatterplot matrix of WASH and SES variables
 pairs(hh2[,c(20:29,38)], cex=0.6, col ='red')
 
-#Make dataset to import into ArcGIS
+#Create de-identified dataset that's not sensitive #####################
+  hh2<-read.csv("C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/hh_xy_merge.csv")
+  key<-read.csv("C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/HH_Key.csv")
+
+  nonsens<-merge(x = hh2, y = key, by.x = 'HH', by.y = 'ID_Casa')
+    nms<-colnames(nonsens)
+  
+    rmvs <- names(nonsens) %in% nms[c(1,2,32:37,39:40,42:46)]
+  ff<-nonsens[!rmvs]
+  
+  ff$inf_1_0 = 0
+  
+  ff$d_inc[is.na(ff$d_inc)]<-0
+  
+  ff$inf_1_0[ff$d_inc > 0]<-1
+  
+  plot(x = ff$inf_1_0, y = ff$d_inc)
+  
+  #Since excel sucks, replace hh id "-" with "_"
+    ff$ID_Key<-gsub("-", "_",ff$ID_Key)
+  
+  write.csv(ff, "C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/hh_xy_merge_deID.csv",
+            row.names = FALSE)
+  
+#Make dataset to import into ArcGIS ###############
 h<-unique(hh2$HH)
 
 fin<-data.frame(hh = h,

@@ -4,7 +4,7 @@ vils<-sort(unique(data$village))
 weeks<-sort(unique(data$week))
 hhs<-sort(unique(data$HH))
 
-#Plot number of infected households in each village across time ##########
+#Plot number of infected households and individuals in each village across time ##########
 infhh = matrix(ncol = length(vils), nrow = length(weeks))
 cases = matrix(ncol = length(vils), nrow = length(weeks))
 
