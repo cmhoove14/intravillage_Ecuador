@@ -65,6 +65,9 @@ for(i in 1:length(vils)){
     mytitle = paste("village", vils[j])
     hist(hh_totals$cases[hh_totals$village == vils[j]], breaks = 20, main = paste('village', vils[j]))
     dev.off()
-  }  
-    
-
+  }
+#Check out households with duplicate xy coordinates
+  hhd<-read.csv('C:/Users/chris_hoover/Documents/RemaisWork/SurfaceH2O/Ecuador/IntraVillage/hh_xy_duplicates.csv')      
+  hhds<-hhd$hh
+  hhc<-data[data$HH %in% c(hhds),]
+  
